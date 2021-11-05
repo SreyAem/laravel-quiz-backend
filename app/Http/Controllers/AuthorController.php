@@ -25,6 +25,11 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'name'=>'required|min:3|max:10',
+            'age'=>'required|min:1|max:10', 
+            'province' => 'nullable'
+        ]);
         $author = new Author();
         $author->name = $request->name;
         $author->age = $request->age;
@@ -60,7 +65,7 @@ class AuthorController extends Controller
             'province' => 'nullable'
         ]);
 
-        $author = Author();
+        $author = Author::findOrFail($id);
         $author->name = $request->name;
         $author->age = $request->age;
         $author->province = $request->province;
